@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vite/
+coverage/
+pocketlan-gui/release/
+pocketlan-gui/server-dist/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Logs and OS files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# Runtime data and tool output
+SharedFiles/
+graphify-out/
+server/.uploads/
+server/.pocketlan-trash/
+server/.natu-trash/

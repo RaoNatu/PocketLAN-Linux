@@ -1,0 +1,68 @@
+{
+  "name": "pocketlan-gui",
+  "version": "1.0.2",
+  "description": "A Fedora Electron launcher for PocketLAN.",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:vite": "vite --host 127.0.0.1 --port 5174",
+    "build:web": "npm --prefix ../client run build",
+    "build:server": "esbuild ../server/src/index.js --bundle --platform=node --format=esm --target=node22 \"--banner:js=import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\" --outfile=server-dist/index.js",
+    "build": "vite build",
+    "build:appimage": "npm run build:web && npm run build:server && npm run build && electron-builder --linux AppImage"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.1",
+    "framer-motion": "^12.12.1",
+    "lucide-react": "^0.511.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.0",
+    "autoprefixer": "^10.4.21",
+    "electron": "42.11.14",
+    "electron-builder": "^26.0.12",
+    "esbuild": "0.25.12",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.3.5"
+  },
+  "build": {
+    "appId": "com.pocketlan.app",
+    "productName": "PocketLAN",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "server-dist",
+        "to": "server/src"
+      },
+      {
+        "from": "../client/dist",
+        "to": "client/dist"
+      },
+      {
+        "from": "public/logo.png",
+        "to": "logo.png"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Network",
+      "icon": "build/icon.png",
+      "executableName": "pocketlan"
+    }
+  }
+}
